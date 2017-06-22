@@ -2,7 +2,11 @@
 # 
 # Copyright (c) 2017 Oracle and/or its affiliates. All rights reserved.
 # 
+<<<<<<< HEAD
 FROM oracle/openjdk:latest
+=======
+FROM oracle/openjdk:8
+>>>>>>> origin/master
 
 MAINTAINER Mayuresh A Nirhali <mayuresh.nirhali@oracle.com>
 
@@ -19,8 +23,10 @@ RUN yum -y install unzip && \
     rm "${PACKAGE}-${VERSION}.${EXTENSION}" && \
     yum -y remove unzip && rm -rf /var/cache/yum/*
  
-WORKDIR "/kv-${VERSION}"
- 
+VOLUME ["/kvroot"]
+
+WORKDIR "$KVHOME"
+
 EXPOSE 5000 5001 5010-5020
 
-CMD ["java", "-jar", "lib/kvstore.jar", "kvlite", "-secure-config", "disable"]
+CMD ["java", "-jar", "lib/kvstore.jar", "kvlite", "-secure-config", "disable", "-root", "/kvroot"]

@@ -14,9 +14,14 @@ First make sure you have built sample image inside **1221-domain**. Now to build
 
 To start the Admin Server with the application automatically deployed, run:
 
-        $ docker run -d -p 8001:8001 1221-domain-with-resources
+        $ docker run -d -p 7001:7001 1221-domain-with-resources
 
 You should now be able to see the Data Source and the JMS components
+
+When configured to do JMS Persistance the persistent store should be mapped to a volume on the host. Map the data volume in the container to a volume on the host to preserve the store in case the container fails, this allows for a new JMS Server recover messages. To map the data volumes use this docker run sample:
+
+        $ docker run -d -v host-volume:/u01/oracle/user_projects/domains/base_domain/PersistentStore-directory -p 7001:7001 1221-domain-with-resources
+
 
 # Copyright
 Copyright (c) 2015 Oracle and/or its affiliates. All rights reserved.
