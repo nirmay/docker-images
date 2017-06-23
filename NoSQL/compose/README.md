@@ -1,4 +1,4 @@
-#Oracle NoSQL Database on Docker: 
+Oracle NoSQL Database on Docker: 
 ==========
 This sample set of docker-compose files demonstrates how to create a scalable Oracle NoSQL Database cluster on Docker with Multihost Network support. To get this up and running, follow these steps:
 
@@ -16,15 +16,15 @@ This sample set of docker-compose files demonstrates how to create a scalable Or
 
  4. Run the **docker-compose** command below to bring up the Oracle NoSQL Database cluster with the compose file identified above.
 
-        'docker-compose -f <docker-compose-file-from-step3> -d up &'
+        docker-compose -f <docker-compose-file-from-step3> -d up &
 
  5. Run the following command to access nosqlstore1-1 container
 
-        'docker exec -it nosqlstore1-1 /bin/bash'
+        docker exec -it nosqlstore1-1 /bin/bash
 
  6. Check the status of the Oracle NoSQL Database cluster using ping command per below,
 
-        'java -jar lib/kvstore.jar ping -host localhost -ort 5000'
+        java -jar lib/kvstore.jar ping -host localhost -ort 5000
 
 # Copyright
 Copyright (c) 2017 Oracle and/or its affiliates. All rights reserved.
