@@ -1,0 +1,57 @@
+version: '2'
+services:
+  nosqlstore1:
+    container_name: "nosqlstore1"
+    image: "oracle/nosql:latest"
+    ports:
+      - "7000:5000"
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - RNHOST=nosqlstore1
+    entrypoint: ["/scripts/makebootconfig3x3.sh"]
+    command: java -jar lib/kvstore.jar start -root /kvroot 
+
+  nosqlstore2:
+    container_name: "nosqlstore2"
+    image: "oracle/nosql:latest"
+    ports:
+      - "8000:5000"
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - RNHOST=nosqlstore2
+    entrypoint: ["/scripts/makebootconfig3x3.sh"]
+    command: java -jar lib/kvstore.jar start -root /kvroot 
+
+  nosqlstore3:
+    container_name: "nosqlstore3"
+    image: "oracle/nosql:latest"
+    ports:
+      - "9000:5000"
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - RNHOST=nosqlstore3
+    entrypoint: ["/scripts/makebootconfig3x3.sh"]
+    command: java -jar lib/kvstore.jar start -root /kvroot 
+
+  nosqlstore-setup:
+    container_name: "nosqlstore-setup"
+    image: "oracle/nosql:latest"
+    depends_on: 
+      - "nosqlstore1"
+      - "nosqlstore2"
+      - "nosqlstore3"
+    links:
+      - nosqlstore1:nosqlstore1
+      - nosqlstore2:nosqlstore2
+      - nosqlstore3:nosqlstore3
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - RN1=nosqlstore1
+      - RN2=nosqlstore2
+      - RN3=nosqlstore3
+      - RNHOST=nosqlstore-setup
+    entrypoint: ["/scripts/setup3x3.sh"]

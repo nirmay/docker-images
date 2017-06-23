@@ -1,0 +1,41 @@
+version: '2'
+services:
+  nosqlstore1-1:
+    container_name: "nosqlstore1-1"
+    image: "oracle/nosql:latest"
+    ports:
+      - "9000:5000"
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - RN1=nosqlstore1-1
+      - RNHOST=nosqlstore1-1
+    entrypoint: ["/scripts/makebootconfig1x1.sh"]
+    command: java -jar lib/kvstore.jar start -root /kvroot 
+
+  nosqlstore-setup:
+    container_name: "nosqlstore-setup"
+    image: "oracle/nosql:latest"
+    depends_on: 
+      - "nosqlstore1-1"
+    links:
+      - nosqlstore1-1:nosqlstore1-1
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - RN1=nosqlstore1-1
+      - RNHOST=nosqlstore-setup
+    entrypoint: ["/scripts/setup1x1.sh"]
+
+  nosqlstore-proxy:
+    container_name: "nosqlstore-proxy"
+    image: "nirmay/oraclenosql-pythondriver:latest"
+    ports:
+      - "7010:7010"
+    depends_on: 
+      - "nosqlstore-setup"
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - HELPER_HOST=nosqlstore1-1
+    entrypoint: ["/scripts/setup-proxy.sh"]
