@@ -29,7 +29,7 @@ services:
 
   nosqlstore-proxy:
     container_name: "nosqlstore-proxy"
-    image: "oracle/nosql-pythondriver:latest"
+    image: "nirmay/oraclenosql-pythondriver:latest"
     ports:
       - "7010:7010"
     depends_on: 
