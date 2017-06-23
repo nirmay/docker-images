@@ -16,7 +16,7 @@ This sample set of docker-compose files demonstrates how to create a scalable Or
 
  4. Run the **docker-compose** command below to bring up the Oracle NoSQL Database cluster with the compose file identified above.
 
-        docker-compose -f <docker-compose-file-from-step3> -d up &
+        docker-compose -f <docker-compose-file-from-step3> up &
 
  5. Run the following command to access nosqlstore1-1 container
 
@@ -25,6 +25,10 @@ This sample set of docker-compose files demonstrates how to create a scalable Or
  6. Check the status of the Oracle NoSQL Database cluster using ping command per below,
 
         java -jar lib/kvstore.jar ping -host localhost -ort 5000
+
+ 7. Stop all the docker containers with following command
+
+        docker-compose -f <docker-compose-file-from-step3> down
 
 # Copyright
 Copyright (c) 2017 Oracle and/or its affiliates. All rights reserved.
