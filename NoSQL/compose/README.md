@@ -24,7 +24,7 @@ This sample set of docker-compose files demonstrates how to create a scalable Or
 
  6. Check the status of the Oracle NoSQL Database cluster using ping command per below,
 
-        java -jar lib/kvstore.jar ping -host localhost -ort 5000
+        java -jar lib/kvstore.jar ping -host localhost -port 5000
 
  7. Stop all the docker containers with following command
 
